@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: buildflow-ai-backend
+    runtime: node
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        value: buildflow-secret-key-12345

@@ -13,11 +13,14 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d buildflow"]
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - buildflow_net
 
   backend:
     build: ./backend
@@ -33,6 +36,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - buildflow_net
 
   frontend:
     build: ./frontend
@@ -42,6 +47,12 @@ services:
       - "3000:80"
     depends_on:
       - backend
+    networks:
+      - buildflow_net
+
+networks:
+  buildflow_net:
+    driver: bridge
 
 volumes:
   postgres_data:
