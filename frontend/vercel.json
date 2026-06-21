@@ -12,11 +12,11 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://buildflow-ai-backend.onrender.com/api/$1"
+      "destination": "https://backend-weld-one-31.vercel.app/api/$1"
     },
     {
       "source": "/health",
-      "destination": "https://buildflow-ai-backend.onrender.com/health"
+      "destination": "https://backend-weld-one-31.vercel.app/health"
     },
     {
       "source": "/((?!assets/).*)",
