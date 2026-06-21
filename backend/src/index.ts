@@ -59,11 +59,16 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString(), database: 'Connected (Dual-Mode)' });
 });
 
-// Run Server
-app.listen(PORT, () => {
-  console.log(`========================================`);
-  console.log(` BuildFlow AI Backend Server active!     `);
-  console.log(` Port: http://localhost:${PORT}          `);
-  console.log(` Mode: TypeScript Development            `);
-  console.log(`========================================`);
-});
+// Export app for Vercel serverless runtime
+export default app;
+
+// Run Server (only when not in serverless environment)
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`========================================`);
+    console.log(` BuildFlow AI Backend Server active!     `);
+    console.log(` Port: http://localhost:${PORT}          `);
+    console.log(` Mode: TypeScript Development            `);
+    console.log(`========================================`);
+  });
+}
